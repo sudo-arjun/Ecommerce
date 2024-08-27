@@ -1,0 +1,25 @@
+<div class="pCart max-w-4xl mx-auto bg-white shadow-lg rounded-lg flex p-4 mb-4">
+    <!-- Product Image -->
+    <div class="w-1/4 flex-shrink-0">
+      <img src=<%= cardD.imgSrc %> alt="Product Image" class="w-full h-full object-cover rounded-lg">
+    </div>
+  
+    <!-- Product Details -->
+    <div class="w-1/2 pl-4">
+      <h2 class="text-lg font-bold text-gray-800"><%=cardD.productName%></h2>
+      <p class="text-sm text-gray-600 mt-1"><%=cardD.description%></p>
+      <p class="mt-3 text-gray-800 font-semibold">Price: <%=cardD.currency%> <%= cardD.price%></p>
+    </div>
+  
+    <!-- Quantity Counter -->
+    <div class="w-1/4 flex flex-col items-center justify-center space-y-2">
+      <div class="flex items-center space-x-2">
+        <button onclick="quantityHandler(event,'-')" class="quantityDecreaseBtn bg-gray-300 text-gray-800 rounded px-3 py-1 font-bold hover:bg-gray-400">-</button>
+        <span class="text-lg font-semibold text-black"><%=cardD.productCartQuantity%>   </span>
+        <button onclick="quantityHandler(event,'+')" class="quantityIncreaseBtn bg-gray-300 text-gray-800 rounded px-3 py-1 font-bold hover:bg-gray-400">+</button>
+      </div>
+      <button onclick="removeHandler(event)" class="removeBtn text-red-600 hover:text-red-800 text-sm font-medium">Remove</button>
+      <p class="data hidden"> <%= JSON.stringify(cardD) %></p>
+    </div>
+  </div>
+  

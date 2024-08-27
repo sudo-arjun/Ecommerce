@@ -1,0 +1,16 @@
+<div class="flex justify-around items-center">
+    <h1 class="font-sans text-2xl"> <a href="/">E-commerce Site</a></h1>
+    <div>
+        <p>User:<%=email%></p>
+        <a href="/logout">Log out</a>
+        <a href="/cart">Cart</a>
+        <a href="/login">Login</a>
+        <a href="/signup">Signup</a>
+        <% if(role == 'admin'){ %>
+            <a href="/admin">Admin panel</a>
+            <a href="/admin/addProduct">Add Product</a>
+            <a href="/admin/vieweditproduct">View/Edit Product</a>
+
+        <% }%>
+    </div>
+</div>  

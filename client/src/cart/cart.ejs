@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ecommerce</title>
+        <link href="/output.css" rel="stylesheet">
+        <script src="/src/cart/cart.js" type="module" defer></script>
+    </head>
+
+    <body class="dark:bg-neutral-800 dark:text-white">
+        <%- include('../../partials/header', user) %>
+        <% cartArr.forEach((cardData)=>{ %>
+            <%- include('../../partials/cardForCart', {cardD: cardData, cardStr: JSON.stringify(cardData)}) %>
+        <% }) %>
+        <%- include('../../partials/footer') %>
+    </body>
+</html>

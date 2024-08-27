@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ecommerce</title>
+        <link href="/output.css" rel="stylesheet">
+        <script src="/src/admin/viewEditProduct.js" type="module" defer></script>
+    </head>
+
+    <body class="dark:bg-neutral-800 dark:text-white">
+        <%- include('../../partials/header', userObj) %>
+        <div id="productPg" class="flex flex-wrap gap-2 justify-evenly">
+            <% arr.forEach((cardData)=>{ %>
+                <%- include('../../partials/cardForAdmin', {cardD: cardData, cardStr: JSON.stringify(cardData)}) %>
+            <% }) %>
+        </div>
+        <div class="flex justify-center items-center p-2 m-2 ">    
+            <button id="loadBtn" class="bg-green-300 hover:bg-green-400 rounded p-2 dark:bg-green-700 dark:hover:bg-green-600">Load more</button>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>bdd product</title>
+    <link href="/output.css" rel="stylesheet">
+    <script src="/src/admin/addProduct.js" type="module" defer></script>
+</head>
+
+<body class="dark:bg-neutral-800 dark:text-white">
+    <%- include('../../partials/header', userObj) %>
+
+        <form class="border border-white flex flex-col justify-center items-center p-6 bg-gray-800 rounded-lg">
+            <fieldset class="w-full max-w-md">
+                <h1 class="text-2xl text-center">Add Product</h1>
+                <div class="mb-4">
+                    <label for="productName" class="block text-white text-sm font-bold mb-2">Product Name:</label>
+                    <input id="productName" name="productName" type="text"
+                        class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black">
+                </div>
+                <div class="mb-4">
+                    <label for="productDescript" class="block text-white text-sm font-bold mb-2">Product
+                        Description:</label>
+                    <input id="productDescript" name="productDescript" type="text"
+                        class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black">
+                </div>
+                <div class="mb-4">
+                    <label for="productBrand" class="block text-white text-sm font-bold mb-2">Product Brand:</label>
+                    <input id="productBrand" name="productBrand" type="text"
+                        class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black">
+                </div>
+                <div class="mb-4">
+                    <label for="productPrice" class="block text-white text-sm font-bold mb-2">Product Price:</label>
+                    <input id="productPrice" name="productPrice" type="text"
+                        class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black">
+                </div>
+                <div class="mb-4">
+                    <label for="productQuantity" class="block text-white text-sm font-bold mb-2">Product
+                        Quantity:</label>
+                    <input id="productQuantity" name="productQuantity" type="text"
+                        class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black">
+                </div>
+                <div class="mb-4">
+                    <label for="productImage" class="block text-white text-sm font-bold mb-2">Product Image:</label>
+                    <input type="file" name="productImage"
+                        class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ">
+                </div>
+                <input type="submit" value="Add Product"
+                    class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-700">
+            </fieldset>
+        </form>
+</body>
+
+</html>
