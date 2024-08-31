@@ -1,5 +1,5 @@
 import sendPostReq from '../../functions/sendPostReq.js'
-const server = 'http://localhost:3000'
+const server = document.location.origin || 'http://localhost:3000'
 const form = document.querySelector('form');
 form.addEventListener('submit',async (e)=>{
     e.preventDefault();

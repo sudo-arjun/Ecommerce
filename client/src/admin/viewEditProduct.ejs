@@ -7,10 +7,10 @@
     </head>
 
     <body class="dark:bg-neutral-800 dark:text-white">
-        <%- include('../../partials/header', userObj) %>
+        <%- include('../../partials/header', {user: userObj}) %>
         <div id="productPg" class="flex flex-wrap gap-2 justify-evenly">
             <% arr.forEach((cardData)=>{ %>
-                <%- include('../../partials/cardForAdmin', {cardD: cardData, cardStr: JSON.stringify(cardData)}) %>
+                <%- include('../../partials/cardForAdmin', {cardD: cardData, cardStr: JSON.stringify(cardData), fun1: "editHandler(event)", fun2: "deleteHandler(event)"}) %>
             <% }) %>
         </div>
         <div class="flex justify-center items-center p-2 m-2 ">    

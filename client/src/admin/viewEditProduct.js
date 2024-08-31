@@ -1,5 +1,6 @@
 import sendPostReq from '../../functions/sendPostReq.js';
-const apiProduct = 'http://localhost:3000/api/product';
+const server = document.location.origin;
+const apiProduct = `${server}/api/product`;
 let skip = 10, limit = 10;
 let loadBtn = document.querySelector('#loadBtn');
 let productPg = document.querySelector('#productPg');

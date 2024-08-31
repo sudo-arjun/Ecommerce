@@ -2,19 +2,25 @@ import { Router } from 'express';
 import jwt from 'jsonwebtoken';
 import customer from '../../models/customer.js';
 import product from '../../models/product.js';
+import userObj from '../../middlewares/userObj.js';
 const router = Router();
 const cartFile = 'cart/cart.ejs'
+const loginFile = 'login/login.ejs'
+const secret = process.env.SECRET || "chetan"
 
-router.route('/').get(async (req, res) => {
-    console.log(req.cookies);
-    if (req.cookies.accessToken) {
-        const userObj = jwt.verify(req.cookies.accessToken, 'chetan');
+router.route('/').get(userObj, async (req, res) => {
+    // console.log(req.cookies);
+    if (req.userObj) {
         console.log(userObj);
-        if(userObj.role == 'admin')
+        if(userObj?.role == 'admin')
             return res.redirect('/admin');
-        const cartArr = await getCartDataFromId(userObj._id);
+        const cartArr = await getCartDataFromId(userObj?._id);
+        console.log(cartArr);
         res.render(cartFile, { cartArr, user: userObj })
+        console.log(cartArr);
     }
+    else
+        res.redirect('/login');
 })
 
 async function getCartDataFromId(_id) {

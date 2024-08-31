@@ -1,4 +1,4 @@
-const server = 'http://localhost:3000';
+const server = location.origin;
 const form = document.querySelector('form');
 console.log('js');
 form.addEventListener('submit',async (e)=>{

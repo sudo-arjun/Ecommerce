@@ -1,4 +1,6 @@
-<div class="border-gray-300 border rounded-md overflow-hidden shadow-white shadow-sm w-52 h-72 hover:shadow-md dark:hover:shadow-emerald-600 dark:shadow-neutral-500 dark:bg-neutral-800 dark:border-gray-800 transition-hover">
+<div class="card border-gray-300 border rounded-md overflow-hidden shadow-white shadow-sm w-52 h-72
+      dark:hover:shadow-emerald-600 dark:shadow-neutral-500 dark:bg-neutral-800 dark:border-gray-800 
+      transition-hover hover:shadow-md ">
     <%# image #%>
     <div class="h-4/6 bg-white flex justify-center items-center">
       <img class="max-h-full max-w-full" alt="Image Not Found!" src=<%= cardD.imgSrc %> >
@@ -8,8 +10,8 @@
       <h5 class="px-2 text-gray-400 "><%= cardD.brand %></h5>
       <p class="px-2"><%= cardD.productName %></p>
       <div class="flex justify-evenly items-center p-1 m-1">
-        <button onclick="detailHandler(event)" class="bg-green-300 hover:bg-green-400 rounded p-1 dark:bg-green-700 dark:hover:bg-green-600">Details</button>
-        <button onclick="cartHandler(event)" class="bg-green-300 hover:bg-green-400 rounded p-1 dark:bg-green-700 dark:hover:bg-green-600c cart">Add to Cart</button>
+        <button onclick=<%= fun1 %> class="bg-green-300 hover:bg-green-400 rounded p-1 dark:bg-green-700 dark:hover:bg-green-600">Details</button>
+        <button onclick=<%= fun2 %> class="bg-green-300 hover:bg-green-400 rounded p-1 dark:bg-green-700 dark:hover:bg-green-600c cart">Add to Cart</button>
         <span class="rounded-md bg-green-600 hidden">0</span>
         <p class="data hidden"> <%= JSON.stringify(cardD) %></p>
       </div>

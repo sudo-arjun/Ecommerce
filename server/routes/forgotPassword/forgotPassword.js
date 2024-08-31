@@ -4,9 +4,11 @@ import {sendMailLink} from '../../middlewares/sendMail.js';
 import crypto from 'crypto'
 import jwt from 'jsonwebtoken'
 const _dirname = 'D:\\Code\\CQ\\ecom'
+const secret = process.env.SECRET || "chetan"
+
 const router = Router();
 let links = {};
-const server = 'http://localhost:3000'
+const server = process.env.SERVER || 'http://localhost:3000'
 const resetFile = '/client/src/reset/reset.html';
 router.post('/',async (req,res)=>{
     if(req.body.email){
@@ -35,7 +37,7 @@ router.get('/:sCode',(req,res)=>{
         email : links[req.params.sCode],
         generatedFrom: 'forgotPassword'
     }
-    let passToken = jwt.sign(payload,'chetan');
+    let passToken = jwt.sign(payload, secret);
     res.cookie('passToken',passToken)
     res.sendFile(`${_dirname}${resetFile}`);
 })

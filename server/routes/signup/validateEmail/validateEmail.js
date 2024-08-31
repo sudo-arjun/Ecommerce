@@ -4,6 +4,8 @@ import sendMail from '../../../middlewares/sendMail.js';
 import jwt from 'jsonwebtoken';
 import customer from '../../../models/customer.js'
 let router = Router();
+const secret = process.env.SECRET || "chetan"
+
 // let save
 //to get secret URL
 router.route('/validateEmail').post(ifEmailExits, async (req,res)=>{
@@ -17,7 +19,7 @@ router.route('/validateEmail').post(ifEmailExits, async (req,res)=>{
             otp
         }
         sendMail(req.body.email,JSON.stringify(payload));
-        let accessToken = jwt.sign(payload,'chetan');
+        let accessToken = jwt.sign(payload, secret);
         res.cookie('accessToken', accessToken);
         return res.send({'msg':"email sent"});
     }

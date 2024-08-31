@@ -1,24 +1,62 @@
 import sendPostReq from '../../functions/sendPostReq.js';
-const server = 'http://localhost:3000';
+const server = location.origin || 'http://localhost:3000';
+console.log(server)
 let skip = 10, limit = 10;
 let loadBtn = document.querySelector('#loadBtn');
 let productPg = document.querySelector('#productPg');
-loadBtn.addEventListener('click', async () => {
-    let response = await fetch(`${server}/api/product?limit=${limit}&&skip=${skip}`)
-    let data = await response.json();
-    data.forEach((product) => {
-        let card = createCard(product);
-        console.log('product appended');
-        productPg.appendChild(card);
-    })
-    skip += limit;
-    if (data.length < limit) {
-        loadBtn.setAttribute('disabled', '');
-        // loadBtn.classList.remove('')
-        loadBtn.innerText = 'No Data'
-    }
+// loadBtn.addEventListener('click', async () => {
+//     let response = await fetch(`${server}/api/product?limit=${limit}&&skip=${skip}`)
+//     let data = await response.json();
+//     console.log(response);
+//     if(response.ok){
+//         data.forEach((product) => {
+//             let card = createCard(product);
+//             productPg.appendChild(card);
+//         })
+//     }
+//     else
+//         console.log(data.msg)
+//     //set skip for next request
+//     skip += limit;
+//     if (data.length < limit) {
+//         loadBtn.remove();
+//         // loadBtn.setAttribute('disabled', '');
+//         // // loadBtn.classList.remove('')
+//         // loadBtn.innerText = 'No Data'
+//     }
 
+// })
+let flag = true;
+document.addEventListener('scroll',async (e)=>{
+    // console.log(e);
+    if(flag && window.scrollY + window.innerHeight > (document.body.scrollHeight - 100))
+    {
+        flag = false;
+        await bringData();  
+        console.log("bring");
+    }
 })
+async function bringData(){
+        let response = await fetch(`${server}/api/product?limit=${limit}&&skip=${skip}`)
+        let data = await response.json();
+        console.log(response);
+        if(response.ok){
+            data.forEach((product) => {
+                let card = createCard(product);
+                productPg.appendChild(card);
+            })
+        }
+        else
+            console.log(data.msg)
+        //set skip for next request
+        skip += limit;
+        flag = true;
+        if (data.length < limit) {
+            // loadBtn.remove();
+            flag = false;
+            console.log("finished");
+        }
+}
 // productPg.addEventListener('click',(e)=>{
 //     let detailBtn = e.target;
 //     let data = JSON.parse(detailBtn.nextElementSibling.innerText);
@@ -63,10 +101,10 @@ function detailHandler(e){
 }
 
 /*
-As i using scripts as module
+As i am using scripts as module
 the functions are scoped inside the module and not accessible from global window scope
 which is true when script are not modules
-so we have to explicitly set the global function if so
+so we have to explicitly set the global function
 */
 window.cartHandler = cartHandler;
 window.detailHandler = detailHandler;

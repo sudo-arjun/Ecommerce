@@ -1,0 +1,18 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ecommerce</title>
+        <link href="/output.css" rel="stylesheet">
+    </head>
+
+    <body class="dark:bg-neutral-800 dark:text-white">
+        <%- include('../../partials/header', user) %>
+            <div >
+                <% orders.forEach((order)=>{ %>
+                    <%- include('../../partials/cardForOrder', {order}) %>
+                <% }) %>
+            </div>
+        <%- include('../../partials/footer') %>
+    </body>
+</html>

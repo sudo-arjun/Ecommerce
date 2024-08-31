@@ -19,8 +19,8 @@ export default async function (req, res) {
                 currency,
             }
             console.log(updateObj);
-            if (req.file)
-                productObj.imgSrc = `/images/${req.file?.filename}`;
+            if (req.file)   
+                updateObj.imgSrc = `/images/${req.file?.filename}`;
             console.log('in',_id)
             let result = await product.findByIdAndUpdate(_id, updateObj,{new:true})
             console.log(result);

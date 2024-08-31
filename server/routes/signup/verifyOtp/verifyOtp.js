@@ -2,12 +2,14 @@ import {Router} from 'express';
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import customer from '../../../models/customer.js'
+const secret = process.env.SECRET || "chetan"
+
 const router = Router();
 router.post('/verifyOtp',async (req,res)=>{
     // console.log(req.body.otp)
     let accessToken = req.cookies?.accessToken;
     if(accessToken && req.body.otp){
-        let userObj = jwt.verify(accessToken,'chetan');
+        let userObj = jwt.verify(accessToken, secret);
         if(userObj.otp == req.body.otp){
             //
             console.log("redirected to login");
@@ -17,7 +19,7 @@ router.post('/verifyOtp',async (req,res)=>{
             let result = await storeInDb(userObj);
             delete userObj.password;
             userObj._id = result._id;
-            res.cookie('accessToken',jwt.sign(userObj,'chetan'));
+            res.cookie('accessToken',jwt.sign(userObj, secret));
            return res.redirect('/login');
         }
     }

@@ -1,5 +1,5 @@
 import {Router} from "express"
-import { getProductsData } from "../../../functions/functions.js";
+import { getProductsData } from "../../../lib/functions.js";
 const router = Router();
 const secret = process.env.SECRET || 'chetan';
 const _dirname = 'D:\\Code\\CQ\\ecom'

@@ -1,13 +1,14 @@
 import { Router } from 'express';
 import customer from '../../../models/customer.js';
 import jwt from 'jsonwebtoken'
+const secret = process.env.SECRET || "chetan";
 const router = Router();
 
 router.post('/', ifLogin, storeInDb)
 
 async function ifLogin(req, res, next) {
     if (req.cookies?.accessToken && req.body.productId) {
-        req.userObj = await jwt.verify(req.cookies.accessToken, 'chetan');
+        req.userObj = await jwt.verify(req.cookies.accessToken, secret);
         return next();
     }
     res.redirect('/login');

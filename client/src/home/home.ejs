@@ -1,21 +1,35 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Ecommerce</title>
-        <link href="/output.css" rel="stylesheet">
-        <script src="/src/home/home.js" type="module" defer></script>
-    </head>
 
-    <body class="dark:bg-neutral-800 dark:text-white">
-        <%- include('../../partials/header', user) %>
+<head>
+    <title>Ecommerce</title>
+    <link href="/output.css" rel="stylesheet">
+    <script src="/src/home/home.js" type="module" defer></script>
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+
+    </script>
+</head>
+
+<body class="light bg-white dark:bg-neutral-800 dark:text-white">
+    <%- include('../../partials/header', {user}) %>
         <div id="productPg" class="flex flex-wrap gap-2 justify-evenly">
             <% arr.forEach((cardData)=>{ %>
-                <%- include('../../partials/card', {cardD: cardData, cardStr: JSON.stringify(cardData)}) %>
-            <% }) %>
+                <%- include('../../partials/card', {cardD: cardData, cardStr:
+                    JSON.stringify(cardData),fun1: "detailHandler(event)" , fun2: "cartHandler(event)" }) %>
+                    <% }) %>
         </div>
-        <div class="flex justify-center items-center p-2 m-2">    
-            <button id="loadBtn" class="bg-green-300 hover:bg-green-400 rounded p-2 dark:bg-green-700 dark:hover:bg-green-600">Load more</button>
-        </div>
-        <%- include('../../partials/footer') %>
-    </body>
+        <%# <div class="flex justify-center items-center p-2 m-2">
+            <button id="loadBtn"
+                class="bg-green-300 hover:bg-green-400 rounded p-2 dark:bg-green-700 dark:hover:bg-green-600">Load
+                more</button>
+            </div>
+            #%>
+            <%- include('../../partials/footer') %>
+</body>
+
 </html>

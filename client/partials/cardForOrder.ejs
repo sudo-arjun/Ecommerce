@@ -1,0 +1,25 @@
+<div class="orderCard max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-4 mb-4">
+
+    <!-- Products List -->
+    <!-- <h2 class="text-lg font-bold text-gray-800">Order Details</h2> -->
+
+    <div class="w-full border-b">
+      <h3 class="text-md font-bold text-gray-700">Products</h3>
+      <% order.products.forEach(product => { %>
+        <div class="productItem flex justify-between mt-2">
+            <p class="text-sm text-gray-600">Product Name: <%= product.brand %> <%= product.productName %></p>
+
+          <p class="text-sm text-gray-600">Quantity: <%= product.orderedQuantity %></p>
+          <p class="text-sm text-gray-600">Price: INR <%= product.productPrice %></p>
+        </div>
+      <% }); %>
+          <!-- Order Details -->
+        <div class="w-full mt-4 pb-4">
+        <h3 class="text-md font-bold text-gray-700">Summary</h3>
+        <p class="text-sm text-gray-600 mt-1">Status: <%= order.status %></p>
+        <p class="text-sm text-gray-600 mt-1">Payment Type: <%= order.paymentType %></p>
+        <p class="text-lg font-semibold text-gray-800 mt-3">Total Amount: INR <%= order.billAmount %></p>
+      </div>
+    </div>
+  </div>
+  

@@ -1,16 +1,44 @@
+<% 
+    let totalPrice = 0;
+    for(let cartObj of cartArr){
+        totalPrice = totalPrice + (cartObj.productCartQuantity * cartObj.price);
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>
         <title>Ecommerce</title>
         <link href="/output.css" rel="stylesheet">
         <script src="/src/cart/cart.js" type="module" defer></script>
+        <sript>
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark')
+              } else {
+                document.documentElement.classList.remove('dark')
+              }
+        </sript>
     </head>
 
     <body class="dark:bg-neutral-800 dark:text-white">
         <%- include('../../partials/header', user) %>
-        <% cartArr.forEach((cardData)=>{ %>
-            <%- include('../../partials/cardForCart', {cardD: cardData, cardStr: JSON.stringify(cardData)}) %>
-        <% }) %>
+        <div class="flex justify-around items-start flex-col md:flex-row gap-3 p-3">
+            <% if(cartArr.length){%>
+            <div>
+                <% cartArr.forEach((cardData)=>{ %>
+                    <%- include('../../partials/cardForCart', {cardD: cardData, cardStr: JSON.stringify(cardData)}) %>
+                    <% }) %>
+            </div>
+            <% }%>
+            <div class="md:w-1/3 w-full bg-gray-100 rounded-lg p-4 flex justify-center items-center flex-col gap-3">
+                <h2 class="text-lg font-bold text-gray-800">Summary</h2>
+                <p class="text-sm text-gray-600 mt-1">Total Amount:<span id="totalPrice"><%= totalPrice.toLocaleString() %></span></p>
+                <!-- <p class="mt-3 text-gray-800 font-semibold">100</p> -->
+                <button id="buyBtn" class="bg-green-300 hover:bg-green-400 rounded-lg p-2 px-3 dark:bg-green-700 dark:hover:bg-green-600c cart">Buy</button>
+            </div>
+        </div>
         <%- include('../../partials/footer') %>
+        <script>
+            // window.cartArr = JSON.parse('<%- JSON.stringify(cartArr[0]) %>')
+        </script>
     </body>
 </html>

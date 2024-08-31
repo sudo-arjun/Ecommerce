@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import {getProductsData} from '../../../../functions/functions.js'
+import {getProductsData} from '../../../../lib/functions.js'
 const router = Router();
 
 router.get('/',async (req,res)=>{

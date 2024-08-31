@@ -2,21 +2,22 @@ import {Router} from "express";
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import customer from '../../models/customer.js'
+import userObj from "../../middlewares/userObj.js";
 const router = Router();
 const _dirname = 'D:\\Code\\CQ\\ecom'
 const loginFile = '/client/src/login/login.ejs'
+const secret = process.env.SECRET || "chetan"
+
 router.route('/').get((req, res) => {
     //check if it has signup cookie/token
-    let accessToken = req.cookies.accessToken;
-    if(accessToken){
-        let userObj = jwt.verify(accessToken,'chetan');
-        console.log(userObj);
-        if(userObj.verified == true){
+    // const userObj = 
+    // if(req?.userObj){
+        // if(userObj.verified == true){   
             //generate new token and send it in cookie
-            return res.render(`${_dirname}${loginFile}`,{classes: ''})
-        }
-    }
-    res.render(`${_dirname}${loginFile}`,{classes: 'hidden'})
+            // return res.render(`${_dirname}${loginFile}`,{classes: '',user: req.userObj})
+        // }
+    // }
+    res.render(`${_dirname}${loginFile}`,{classes: 'hidden', user: {email: null, role: null, loggedIn: null}})
 })
 .post(async (req,res)=>{
     console.log('got login req')
@@ -38,7 +39,7 @@ router.route('/').get((req, res) => {
                     loggedIn: true,
                     role: role
                 }
-                let token = jwt.sign(payload,'chetan');
+                let token = jwt.sign(payload,secret);
                 res.cookie('accessToken',token);
                 return res.redirect('/');
             }
@@ -59,14 +60,14 @@ router.route('/').get((req, res) => {
 router.get('/autoLogin',(req,res)=>{
     let accessToken = req.cookies.accessToken;
     if(accessToken){
-        let userObj = jwt.verify(accessToken,'chetan');
+        let userObj = jwt.verify(accessToken, secret);
         console.log(userObj);
         if(userObj.verified == true){
             //generate new token and send it in cookie
             delete userObj.verify;
             userObj.loggedIn = true;
             userObj.role = 'customer'
-            accessToken = jwt.sign(userObj,'chetan');
+            accessToken = jwt.sign(userObj, secret);
             res.cookie('accessToken',accessToken);
             return res.redirect('/');
         }

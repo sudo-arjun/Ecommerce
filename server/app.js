@@ -18,11 +18,7 @@ app.use(cookieParser())
 app.set('view engine', 'ejs');
 app.set('views', _dirname+'/client/src');
 
-// const multipartData = multer();
-import sendMail from './middlewares/sendMail.js'
-// app.use(express.urlencoded({ extended: true }));
-// app.use(express.json());
-
+// connect database
 connect().then(()=>{
     console.log("mongodb connected");
 })
@@ -31,10 +27,10 @@ app.use(routes);
 
 app.use(express.static(_dirname + '/client'))
 
-// app.use((req,res)=>{
-//     // res.status(404).send({msg:"Page not found"});
-//     res.redirect('/');
-// })
+app.use((req,res)=>{
+    res.status(404).send({msg:"Page not found"});
+    // res.redirect('/');
+})
 
 // app.use((err,req,res)=>{
 //     res.status(500).send({'msg':'ohoh! some problem occurred'})

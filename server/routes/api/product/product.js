@@ -7,6 +7,7 @@ import postMethod from './post/post.js'
 import deleteMethod from './delete/delete.js'
 import patchMethod from './patch/patch.js'
 import putMethod from './put/put.js'
+import {parseUserObj, validateIfLoggedIn, validateIfAdmin} from '../../../middlewares/authMiddlewares.js';
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, 'client/images/')
@@ -19,32 +20,18 @@ const storage = multer.diskStorage({
   })
 const imgUpload = multer({storage:storage});
 const router = Router();
+router.use(parseUserObj);
+router.use(validateIfLoggedIn);
 const secret = process.env.SECRET || 'chetan'
 router.route('/')
-    .get(ifUser, getMethod)
-    .post(ifUser, ifAdmin, imgUpload.single('productImage'), postMethod)
-    .patch(ifUser, ifAdmin, imgUpload.single('productImage'), patchMethod)
-    .put(ifUser, ifAdmin, imgUpload.single('productImage'), putMethod)
+    .get(getMethod)
+    .post(validateIfAdmin, imgUpload.single('productImage'), postMethod)
+    .patch(validateIfAdmin, imgUpload.single('productImage'), patchMethod)
+    .put(validateIfAdmin, imgUpload.single('productImage'), putMethod)
     
 router.route('/:id')
-    .delete(ifUser, ifAdmin, deleteMethod)
+    .delete(validateIfAdmin, deleteMethod)
 
-async function ifUser(req, res, next) {
-    const accessToken = req.cookies?.accessToken;
-    if (accessToken) {
-        const userObj = await jwt.verify(accessToken, secret);
-        if (userObj.email) {
-            req.userObj = userObj;
-            return next();
-        }
-        return res.status(400).send({ 'msg': "bad token" })
-    }
-    return res.status(401).send({ 'msg': "no token" })
-}
-function ifAdmin(req, res, next) {
-    if (req.userObj.role == "admin") {
-        return next();
-    }
-    return res.status(403).send({ msg: "Not authorised" });
-}
+
+
 export default router;
